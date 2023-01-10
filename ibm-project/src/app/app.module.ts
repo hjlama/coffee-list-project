@@ -6,9 +6,10 @@ import { AppComponent } from './app.component';
 import { CoffeeDetailsComponent } from '../coffee-details/coffee-details.component';
 import { CoffeeService } from 'src/coffee-details/coffee.service';
 import { HttpClientModule } from '@angular/common/http';
+import {MatCardModule} from '@angular/material/card';
 
 import { StoreModule } from '@ngrx/store';
-import { reducer as callApiReducer } from '../store/action';
+import { reducer as callApiReducer } from '../store/coffee.actions';
 @NgModule({
   declarations: [
     AppComponent,
@@ -18,6 +19,7 @@ import { reducer as callApiReducer } from '../store/action';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    MatCardModule,
     StoreModule.forRoot({
       callApi: callApiReducer,
     }),

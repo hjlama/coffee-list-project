@@ -5,9 +5,16 @@ import { HttpClient } from '@angular/common/http';
     providedIn: 'root'
 })
 export class CoffeeService {
-    constructor(private httpClient: HttpClient) { }
+    private apiData = {};
+
+    constructor(
+        private httpClient: HttpClient
+    ) { }
 
     async getCoffeeDetails() {
-        return await this.httpClient.get('https://random-data-api.com/api/coffee/random_coffee?size=50');
+        console.log('[coffee-service] getCoffeeDetails()');
+        this.apiData = await this.httpClient.get('https://random-data-api.com/api/coffee/random_coffee?size=50').toPromise();
+        console.log('[result]', this.apiData)
+        return this.apiData;
     }
 }
