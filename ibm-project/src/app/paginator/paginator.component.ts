@@ -14,10 +14,10 @@ export class PaginatorComponent {
     private coffeeService: CoffeeService,
     private store: Store<any>,
   ) {
-    this.store.select('CallAPI')
-      .subscribe((CallAPI) => {
-        if (CallAPI && CallAPI.apiData) {
-          console.log('[paginator] apiData', CallAPI)
+    store.select('coffee')
+      .subscribe((coffee) => {
+        if (coffee && coffee.apiData) {
+          console.log('[paginator] apiData', coffee)
         }
       });
   }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CoffeeService } from './coffee.service';
 import { Store } from '@ngrx/store';
-import { actions as CallApiAction } from '../../store/CallAPI';
+import { actions as CallApiAction } from '../../store/coffee.action';
 
 @Component({
   selector: 'app-coffee-details',
@@ -16,10 +16,10 @@ export class CoffeeDetailsComponent implements OnInit {
     private coffeeService: CoffeeService,
     private store: Store<any>,
   ) {
-    this.store.select('CallAPI')
-      .subscribe((CallAPI) => {
-        if (CallAPI) {
-          console.log('[coffee-details] apiData', CallAPI)
+    store.select('coffee')
+      .subscribe((coffee) => {
+        if (coffee) {
+          console.log('[coffee-details] apiData', coffee)
         }
       });
   }

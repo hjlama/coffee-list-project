@@ -17,7 +17,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 
 //Store
 import { StoreModule } from '@ngrx/store';
-import { reducer as callApiReducer } from '../store/CallAPI';
+import { reducer as coffeeReducer } from '../store/coffee.action';
 
 
 
@@ -34,7 +34,7 @@ import { reducer as callApiReducer } from '../store/CallAPI';
     MatCardModule,
     MatPaginatorModule,
     StoreModule.forRoot({
-      callApi: callApiReducer,
+      coffee: coffeeReducer,
     }),
     BrowserAnimationsModule,
   ],
