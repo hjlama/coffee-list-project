@@ -14,7 +14,6 @@ export class CoffeeService {
     async getCoffeeDetails() {
         console.log('[coffee-service] getCoffeeDetails()');
         this.apiData = await this.httpClient.get('https://random-data-api.com/api/coffee/random_coffee?size=50').toPromise();
-        console.log('[result]', this.apiData)
         return this.apiData;
     }
 }

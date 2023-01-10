@@ -22,9 +22,9 @@ const initialState = {
 
 // reducer
 export function reducer(state = initialState, action) {
+  console.log('[action.ts]', action)
   switch (action.type) {
-
-    case CallAPI:
+    case CALL_API:
       return { ...state, apiData: action.payload };
 
     default:

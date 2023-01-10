@@ -1,6 +1,6 @@
 <p>Coffee-details</p>
-<li *ngFor="let coffee of coffeeData">
-    <mat-card class="example-card">
+<li class="card-list" *ngFor="let coffee of coffeeData">
+    <mat-card class="card-container">
         <mat-card-header>
             <mat-card-title>{{ coffee.blend_name }}</mat-card-title>
             <mat-card-subtitle>{{ coffee.origin}}</mat-card-subtitle>
