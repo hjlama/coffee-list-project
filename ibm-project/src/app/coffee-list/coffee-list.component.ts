@@ -7,9 +7,9 @@ import { startWith, switchMap } from 'rxjs/operators';
 import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
-  selector: 'app-coffee-details',
-  templateUrl: './coffee-details.component.html',
-  styleUrls: ['./coffee-details.component.sass']
+  selector: 'app-coffee-list',
+  templateUrl: './coffee-list.component.html',
+  styleUrls: ['./coffee-list.component.sass']
 })
 export class CoffeeDetailsComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;

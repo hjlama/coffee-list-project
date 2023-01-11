@@ -6,8 +6,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 //Import component
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { CoffeeDetailsComponent } from './coffee-details/coffee-details.component';
-import { CoffeeService } from 'src/app/coffee-details/coffee.service';
+import { CoffeeDetailsComponent } from './coffee-list/coffee-list.component';
+import { CoffeeService } from 'src/app/coffee-list/coffee.service';
 // import { PaginatorComponent } from './paginator/paginator.component';
 
 //Import component
