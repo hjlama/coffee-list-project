@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { CoffeeService } from './coffee.service';
 import { Store } from '@ngrx/store';
 import { actions as CallApiAction } from '../../store/coffee.action';
+import { merge, of } from 'rxjs';
+import { startWith, switchMap } from 'rxjs/operators';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-coffee-details',
@@ -9,17 +12,21 @@ import { actions as CallApiAction } from '../../store/coffee.action';
   styleUrls: ['./coffee-details.component.sass']
 })
 export class CoffeeDetailsComponent implements OnInit {
-  public coffees;
-  public coffeeData;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  data: any;
+  dataSize: any;
 
   constructor(
     private coffeeService: CoffeeService,
     private store: Store<any>,
   ) {
     store.select('coffee')
-      .subscribe((coffee) => {
-        if (coffee) {
-          console.log('[coffee-details] apiData', coffee)
+      .subscribe((coffeeData) => {
+        if (coffeeData && coffeeData.apiData) {
+          console.log('coffeeData size', coffeeData.apiData.length)
+          this.dataSize = coffeeData.apiData.length;
+          this.linkListToPaginator()
+          console.log('[coffee-details] apiData', coffeeData)
         }
       });
   }
@@ -29,8 +36,27 @@ export class CoffeeDetailsComponent implements OnInit {
   }
 
   async getData() {
-    this.coffeeData = await this.coffeeService.getCoffeeDetails();
-    this.store.dispatch(new CallApiAction.CallAPI({ apiData: this.coffeeData }));
-    console.log('[CoffeeDetailsComponent] store dispatch', this.coffeeData)
+    this.data = await this.coffeeService.getCoffeeDetails();
+    this.store.dispatch(new CallApiAction.CallAPI({ apiData: this.data }));
+    console.log('[CoffeeDetailsComponent] store dispatch', this.data)
+  }
+
+
+  linkListToPaginator() {
+    merge(this.paginator.page).pipe(
+      startWith({}),
+      switchMap(() => {
+        return of(this.data);
+      })
+    ).subscribe(res => {
+      const from = this.paginator.pageIndex * 10;
+      const to = from + 10;
+      if (Array.isArray(res)) {
+        console.log('res.slice', this.data);
+        this.data = res.slice(from, to);
+      } else {
+        throw "Expected items to be an array"
+      }
+    });
   }
 }
