@@ -1,18 +1,17 @@
-<p>Coffee-details</p>
+
 <div class="list-container">
     <li class="card-list" *ngFor="let coffee of dataSource">
         <mat-card class="card-container">
             <mat-card-header>
                 <mat-card-title>{{ coffee.blend_name }}</mat-card-title>
-                <mat-card-subtitle>{{ coffee.origin}}</mat-card-subtitle>
+                <mat-card-subtitle><b>Origin: </b>{{ coffee.origin }}</mat-card-subtitle>
             </mat-card-header>
             <mat-card-content>
-                <p>{{ coffee.notes }}</p>
-                <p>{{ coffee.intensifier }}</p>
-                <p>{{ coffee.variety }}</p>
+                <p><b>Notes: </b> {{ coffee.notes }}</p>
+                <p><b>Intensifier: </b>{{ coffee.intensifier }}</p>
+                <p><b>Variety: </b>{{ coffee.variety }}</p>
             </mat-card-content>
         </mat-card>
     </li>
-    <mat-paginator #paginator [length]="dataSize" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]">
-    </mat-paginator>
+    <mat-paginator #paginator [length]="dataSize" [pageSize]="pageSize" showFirstLastButtons></mat-paginator>
 </div>

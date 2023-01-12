@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { CoffeeDetailsComponent } from './coffee-list/coffee-list.component';
 
 @Component({
   selector: 'app-root',

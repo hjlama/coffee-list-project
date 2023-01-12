@@ -1,24 +1,29 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { CoffeeService } from './coffee.service';
 import { Store } from '@ngrx/store';
 import { actions as AddDataAction } from '../../store/coffee.action';
 import { merge, of } from 'rxjs';
 import { startWith, switchMap } from 'rxjs/operators';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-coffee-list',
   templateUrl: './coffee-list.component.html',
-  styleUrls: ['./coffee-list.component.sass']
+  styleUrls: ['./coffee-list.component.sass'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CoffeeDetailsComponent implements OnInit {
+export class CoffeeDetailsComponent implements AfterViewInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-  dataSource: any[];
-  dataSize: any;
-  data: any;
+  public dataSource: any[];
+  public dataSize: any;
+  public data: any;
+  public pageIndex: number = 0;
+  public pageSize: number = 10;
+
   constructor(
     private coffeeService: CoffeeService,
     private store: Store<any>,
+    private cdr: ChangeDetectorRef
   ) {
     store.select('coffee')
       .subscribe((coffeeData) => {
@@ -30,9 +35,9 @@ export class CoffeeDetailsComponent implements OnInit {
         }
       });
   }
-  ngOnInit() {
+  ngAfterViewInit() {
     console.log('[CoffeeDetailsComponent] on init')
-    this.getData();
+    // this.getData();
   }
 
   async getData() {
@@ -49,11 +54,12 @@ export class CoffeeDetailsComponent implements OnInit {
         return of(this.data);
       })
     ).subscribe(res => {
-      const from = this.paginator.pageIndex * 10;
-      const to = from + 10;
+      const startKey = this.paginator.pageIndex * 10;
+      const endKey = startKey + 10;
       if (Array.isArray(res)) {
         console.log('res.slice', this.data);
-        this.dataSource = res.slice(from, to);
+        this.dataSource = res.slice(startKey, endKey);
+        this.cdr.detectChanges();
       } else {
         throw "Expected items to be an array"
       }
