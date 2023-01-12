@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { CoffeeService } from './coffee.service';
 import { Store } from '@ngrx/store';
-import { actions as CallApiAction } from '../../store/coffee.action';
+import { actions as AddDataAction } from '../../store/coffee.action';
 import { merge, of } from 'rxjs';
 import { startWith, switchMap } from 'rxjs/operators';
 import { MatPaginator } from '@angular/material/paginator';
@@ -13,9 +13,9 @@ import { MatPaginator } from '@angular/material/paginator';
 })
 export class CoffeeDetailsComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-  data: any;
+  dataSource: any[];
   dataSize: any;
-
+  data: any;
   constructor(
     private coffeeService: CoffeeService,
     private store: Store<any>,
@@ -25,7 +25,7 @@ export class CoffeeDetailsComponent implements OnInit {
         if (coffeeData && coffeeData.apiData) {
           console.log('coffeeData size', coffeeData.apiData.length)
           this.dataSize = coffeeData.apiData.length;
-          this.linkListToPaginator()
+          this.setPageContent()
           console.log('[coffee-details] apiData', coffeeData)
         }
       });
@@ -37,12 +37,12 @@ export class CoffeeDetailsComponent implements OnInit {
 
   async getData() {
     this.data = await this.coffeeService.getCoffeeDetails();
-    this.store.dispatch(new CallApiAction.CallAPI({ apiData: this.data }));
+    this.store.dispatch(new AddDataAction.AddData({ apiData: this.data }));
     console.log('[CoffeeDetailsComponent] store dispatch', this.data)
   }
 
 
-  linkListToPaginator() {
+  setPageContent() {
     merge(this.paginator.page).pipe(
       startWith({}),
       switchMap(() => {
@@ -53,7 +53,7 @@ export class CoffeeDetailsComponent implements OnInit {
       const to = from + 10;
       if (Array.isArray(res)) {
         console.log('res.slice', this.data);
-        this.data = res.slice(from, to);
+        this.dataSource = res.slice(from, to);
       } else {
         throw "Expected items to be an array"
       }

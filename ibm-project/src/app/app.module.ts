@@ -16,7 +16,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatPaginatorModule } from '@angular/material/paginator';
 //Store
 import { StoreModule } from '@ngrx/store';
-import { reducer as coffeeReducer } from '../store/coffee.action';
+import { coffeeReducer} from '../store/coffee.action';
 
 
 

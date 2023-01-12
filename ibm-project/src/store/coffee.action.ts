@@ -2,17 +2,17 @@ import { Action } from '@ngrx/store';
 import { Coffee } from 'src/model/coffee.model';
 
 // action
-export const CALL_API = '[CALL_API] CALL API';
+export const ADD_DATA = '[ADD_DATA] Add Data';
 
-export class CallAPI implements Action {
-  readonly type = CALL_API;
+export class AddData implements Action {
+  readonly type = ADD_DATA;
 
   constructor(public payload: any) {
   }
 }
 
 export const actions = {
-  CallAPI
+  AddData
 };
 
 // state
@@ -21,11 +21,11 @@ const initialState = {
 };
 
 // reducer
-export function reducer(state = initialState, action) {
+export function coffeeReducer(state = initialState, action) {
   console.log('[action.ts]', action)
   switch (action.type) {
-    case CALL_API:
-      return { ...state, apiData: action.payload };
+    case ADD_DATA:
+      return { ...state, apiData: action.payload.apiData };
 
     default:
       return state;
