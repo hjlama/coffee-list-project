@@ -1,32 +1,20 @@
-/* To learn more about this file see: https://angular.io/config/tsconfig. */
 {
   "compileOnSave": false,
   "compilerOptions": {
     "baseUrl": "./",
-    "module": "es2020",
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,
-    "moduleResolution": "node",
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "target": "es5",
     "downlevelIteration": true,
-    "paths": {
-      "core-js/es7/reflect": ["node_modules/core-js/proposals/reflect-metadata"],
-    },
-    "typeRoots": [
-      "node_modules/@types"
-    ],
+    "experimentalDecorators": true,
+    "moduleResolution": "node",
+    "importHelpers": true,
+    "useDefineForClassFields": false,
+    "target": "es2022",
+    "module": "es2022",
     "lib": [
-      "es2017",
+      "es2022",
       "dom"
     ]
-  },
-  "angularCompilerOptions": {
-    "enableI18nLegacyMessageIdFormat": false,
-    "strictInjectionParameters": true,
-    "strictInputAccessModifiers": true,
-    "strictTemplates": true
   }
 }
