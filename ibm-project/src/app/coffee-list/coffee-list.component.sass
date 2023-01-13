@@ -1,28 +1,37 @@
+@import src/assets/_breakpoint.sass
 
 .card-list
     list-style-type: none
     display: inline-block
 
 .card-container
-    height: 200px
-    width: 350px
     background-color: #E6F1F5
     border: 1px solid grey
     margin: 8px 16px
+    @include respond-to(large)
+        height: 200px
+        width: 350px
+    @include respond-to(small)
+        height: 200px
+        width: 350px
 
 mat-card-header
-    padding: 16px 16px 0
-    color: #8A4436
+    @include respond-to(large)
+        padding: 16px 16px 0
+        color: #8A4436
+    @include respond-to(small)
+        padding: 8px 8px 0
+        color: #8A4436
 
-    mat-card-title
-    margin-bottom: 8px
+mat-card-title
+        margin-bottom: 8px
 
 mat-paginator
-    background-color: grey
+        background-color: grey
 
 mat-card-subtitle
-    color: black
-    padding-bottom: 8px
+        color: black
+        padding-bottom: 8px
 
 mat-card-content p
-    margin-bottom: 8px
+        margin-bottom: 8px
